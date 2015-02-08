@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Hello World</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.1.min.css" />
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="js/jquery.mobile-1.4.1.min.js"></script>
+	<script src="js/energize-min.js"></script>
+	<script src="js/Chart.min.js"></script>
+</head>
+
+<body>
+	<!-- Start of first page -->
+	<div data-role="page" id="hello">
+
+		<div data-role="header">
+			<h1>I'm Hello</h1>
+		</div><!-- /header -->
+
+		<div role="main" class="ui-content">
+			<p>I'm first in the source order so I'm shown as the page.</p>
+			<p>View internal page called <a href="#world">World</a></p>
+		</div><!-- /content -->
+
+		<div data-role="footer">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+	<!-- Start of second page -->
+	<div data-role="page" id="world">
+
+		<div data-role="header">
+			<h1>I'm World</h1>
+		</div><!-- /header -->
+
+		<div role="main" class="ui-content">
+			<p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is clicked.</p>
+			<p><a href="#hello">Go back to Hello</a></p>
+		</div><!-- /content -->
+
+		<div data-role="footer">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+	
+	
+	<!-- The chart page for later -->
+	<div data-role="page" id="chart">
+		<div data-role="header">
+			<h1>Chart</h1>
+		</div><!-- /header -->
+		
+		<div id="chartContainer" role="main" class="ui-content">
+		</div><!-- /content -->
+	</div>
+</body>
+	<script src="js/index.js"></script>
+	<script src="js/myChartCode.js"></script>
+</html>
