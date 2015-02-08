@@ -81,7 +81,7 @@
             <div class="widget-container content-area horiz-area wrapping-col header-right"></div>
         </header>
         <header class="container-group wrap-element uib_w_21" data-uib="app_framework/header" data-ver="1" id="af-header-4">
-            <h1></h1>
+            <h1>WellnessNet</h1>
             <div class="widget-container wrapping-col single-centered"></div>
             <div class="widget-container content-area horiz-area wrapping-col header-left"></div>
             <div class="widget-container content-area horiz-area wrapping-col header-right"></div>
@@ -198,7 +198,7 @@
                                     </div>
                                     <div class="table-thing with-label widget uib_w_9" data-uib="app_framework/input" data-ver="1">
                                         <input class="wide-control" placeholder="password" type="text">
-                                    </div><a class="button widget uib_w_10 d-margins green" data-uib="app_framework/button" data-ver="1" href = "#Home">Login</a><span class="uib_shim"></span>
+                                    </div><a class="button widget uib_w_10 d-margins green" data-uib="app_framework/button" data-ver="1" href="#Home">Login</a><span class="uib_shim"></span>
                                 </div>
                             </div>
                             <span class="uib_shim"></span>
@@ -208,19 +208,27 @@
                 <!-- /upage-outer -->
             </div>
             <!-- /upage -->
-            <!--
-            <div class="upage vertical-col left panel" id="Home" data-header="af-header-4" data-footer="none">
-                <center><h2>Welcome to WellnessNet! </br></h2>
-                    <h2>
-                        Please tap the microphone below and then say "I have " followed by your symptoms
-                    </h2>
-                
-                <img src = "images/microphone.png"></img>
-                </center>
-            
-            
+
+            <style>
+                #innerHome{background-color: lightgrey; height:100%; width:100%; display:inline-block}
+            </style>
+
+            <div class="upage vertical-col left panel" id="Home" data-header="af-header-4" data-footer="af-footer-4">
+                <div id="innerHome">
+
+                    <center>
+                        <h2>Welcome to WellnessNet! <br></h2>
+                        <p>
+                            Please tap the microphone below and then say "I have " followed by your symptoms.
+                            <br>
+                        </p>
+
+                        <img src="images/microphone.png" style="width: 24%; position:absolute; bottom:2%; left:38%">
+                    </center>
+                </div>
+
             </div>
-        -->
+
         </div>
         <!-- /uwrap -->
     </body>
