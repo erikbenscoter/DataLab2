@@ -1,0 +1,8 @@
+git commands:
+
+git init 						create new local repository in the current directory
+git add	<filename>					add file to local repository
+git commit	 -m <short commit description>		commit changes to the local repository
+git push -u origin master				push to git repository
+git pull <full webaddress>				pull from git repository (e.g. https://github.com/erikbenscoter/DataLab2)
+
