@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://edge-intel.s3.amazonaws.com/jsapp/production/release-2014-ww51/template-login-view-appdesigner/sample.zip",
       "projectGuid": "5f5b8ef8-0b3c-4432-a060-a9e061281844",
-      "lastModifiedDate": 1423366396759,
+      "lastModifiedDate": 1423378480811,
       "creationDate": 1423366396619
     },
     "XDK-app-designer": "true",
