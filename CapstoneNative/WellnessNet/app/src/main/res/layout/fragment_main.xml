@@ -18,11 +18,23 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/app_name"
             android:id="@+id/textView"
-            android:background="@color/PennStateDarkBlue"
+            android:background="@color/DarkBlue"
             android:gravity="center_vertical|center_horizontal"
             android:textStyle="bold"
-            android:textColor="@color/BrightYellow"
+            android:textColor="@color/White"
             android:textSize="@dimen/abc_action_bar_default_height_material" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tab1"
+            android:id="@+id/textView"
+            android:background="@color/LightBlue"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textColor="@color/DarkBlue"
+            android:textSize="35dp" />
 
         <TextView
             android:layout_width="fill_parent"

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="PennStateDarkBlue">#000099</color>
-    <color name="OffWhite">#FFFFF85C</color>
-    <color name="BrightYellow">#FFFFF000</color>
+    <color name="DarkBlue">#003366</color>
+    <color name="OffWhite">#CCCC99</color>
+    <color name="White">#FFFFFF</color>
+    <color name="LightBlue">#CCCCCC</color>
 
 </resources>

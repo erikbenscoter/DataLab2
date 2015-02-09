@@ -1,12 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project2015.datalab2.wellnessnet.RecentDiagnoses">
+    tools:context="com.project2015.datalab2.wellnessnet.WelcomeFragment">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_gravity="right|bottom">
 
         <TextView
             android:layout_width="fill_parent"
@@ -24,7 +25,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/tab2"
+            android:text="@string/tab0"
             android:id="@+id/textView"
             android:background="@color/LightBlue"
             android:gravity="center_vertical"
@@ -36,9 +37,37 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/PastDiagnosesIntroduction"
+            android:text="@string/WelcomePageAppDescription"
             android:id="@+id/textView2"
             android:padding="25dp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Search  >"
+            android:id="@+id/buttonToSearch"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Local Diagnoses    >"
+            android:id="@+id/buttonToNearYou"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Past Diagnoses    >"
+            android:id="@+id/buttonToHistory"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+
     </LinearLayout>
 
 </FrameLayout>

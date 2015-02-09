@@ -98,11 +98,15 @@ public class MainActivity extends ActionBarActivity {
             Fragment fragment;
 
             switch(fragmentNumber){
-                case 0:     MainFragment mf = new MainFragment();
+                case 0:     WelcomeFragment wf = new WelcomeFragment();
+                            fragment = (Fragment) wf;
+                            break;
+
+                case 1:     MainFragment mf = new MainFragment();
                             fragment = (Fragment) mf;
                             break;
 
-                case 1:     RecentDiagnoses rd = new RecentDiagnoses();
+                case 2:     RecentDiagnoses rd = new RecentDiagnoses();
                             fragment = (Fragment) rd;
                             break;
 
@@ -124,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public int getCount() {
             //display three pages
-            return 3;
+            return 4;
         }
 
         @Override
