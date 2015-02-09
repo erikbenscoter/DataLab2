@@ -8,5 +8,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="welcomeAndRecordPrompt">Welcome to WellnessNet, please press the microphone and say \"I have \" followed by your symptoms</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="PastDiagnosesIntroduction">Below you will find the most recent diagnoses in your area</string>
+    <string name="YourPastDiagnosesIntroduction">Below you will find your most recent diagnoses</string>
 
 </resources>

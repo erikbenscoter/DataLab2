@@ -1,11 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity$PlaceholderFragment"
-    android:padding="0dp">
+    android:layout_height="match_parent"
+    tools:context="com.project2015.datalab2.wellnessnet.RecentDiagnoses">
 
     <LinearLayout
         android:orientation="vertical"
@@ -28,19 +24,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/welcomeAndRecordPrompt"
+            android:text="@string/PastDiagnosesIntroduction"
             android:id="@+id/textView2"
-            android:padding="25dp"
-           />
+            android:padding="25dp" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/microphoneBtn"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/microphone" />
-
-</RelativeLayout>
+</FrameLayout>

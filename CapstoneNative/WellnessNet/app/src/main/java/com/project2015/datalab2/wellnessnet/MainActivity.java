@@ -82,20 +82,48 @@ public class MainActivity extends ActionBarActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
+
+
         @Override
-        public Fragment getItem(int position) {
+        public Fragment getItem(int fragmentNumber) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+
+            Fragment fragment;
+
+            switch(fragmentNumber){
+                case 0:     MainFragment mf = new MainFragment();
+                            fragment = (Fragment) mf;
+                            break;
+
+                case 1:     RecentDiagnoses rd = new RecentDiagnoses();
+                            fragment = (Fragment) rd;
+                            break;
+
+                default:    YourDiagnoses yd = new YourDiagnoses();
+                            fragment = (Fragment) yd;
+                            break;
+
+
+
+
+            }
+
+            return fragment;
+
+
+            //return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            //display three pages
             return 3;
         }
 
