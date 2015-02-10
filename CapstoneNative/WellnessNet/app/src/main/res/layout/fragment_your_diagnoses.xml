@@ -1,0 +1,45 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.project2015.datalab2.wellnessnet.YourDiagnoses">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="right|bottom">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/app_name"
+            android:id="@+id/textView"
+            android:background="@color/DarkBlue"
+            android:gravity="center_vertical|center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@color/White"
+            android:textSize="@dimen/abc_action_bar_default_height_material" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tab3"
+            android:id="@+id/textView"
+            android:background="@color/LightBlue"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textColor="@color/DarkBlue"
+            android:textSize="35dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/YourPastDiagnosesIntroduction"
+            android:id="@+id/textView2"
+            android:padding="25dp" />
+    </LinearLayout>
+
+</FrameLayout>
