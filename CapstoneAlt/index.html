@@ -1,0 +1,82 @@
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<LINK href="css/styles.css" rel="stylesheet" type="text/css"></LINK>
+		<script language = "javascript" src = "js/changePages.js"></script>
+		<script language = "javascript" src = "js/dateInput.js"></script>
+		<script language = "javascript">
+			var previousSubPage="regOrLogin";
+		</script>
+		<div class = "header">
+			<center>
+				<b>
+					<img class = "title" src = "images/wellnessNetLogo.png"></img>
+				</b>
+			</center>
+		</div>
+		<div class = "footer"> 
+		</div>
+
+		<style>
+			.largeButtons{width:80%; height:12.6%;background-color: #B0C4DE; color:black;display: inline-block; border-width: thick; border-color:black; border-bottom:solid; border-right:solid; box-shadow: 10px 10px 5px #888888; font-size: 4vh; text-align: left;}
+			.formInp{color:#006400; width:80%; font-size: 3vh}
+
+		</style>
+
+		<div id = "container">
+			<div id = "regOrLogin" class = "subpage" style = "opacity:1; pointer-events:auto; top:12.5%; bottom:12.5%">
+				<center>
+					<h1>Welcome to WellnessNet</h1>
+					<p>
+						Please select an option below:<br><br><br>
+					</p>
+					<span id = "btn_login" class = "largeButtons" onclick="switchSubPageWithDepressingButton('btn_login','Login')" >Login</span>
+					</br></br>
+					<span id = "btn_register" class = "largeButtons" onclick="switchSubPageWithDepressingButton('btn_register','Register')">Register</span>
+				</center>
+			</div>
+
+			<div id = "Login" class = "subpage" >
+				<center>
+				<span><h1>LogIn</h1></span><br>
+					
+				<input class = "formInp" type = "text" placeholder = "user name"></input><br>
+				<input class = "formInp" type = "password" placeholder = "password"></input><br><br>
+				
+
+				<input class = "formInp" type = "button" value = "Go!"></input><br>
+
+				</center>
+
+			</div>
+
+			<div id = "Register" class = "subpage">
+				<center>
+				<span style = "color:#006400"><h1><u>Registration</u></h1></span><br>
+					
+				<input class = "formInp" type = "text" placeholder = "user name"></input><br>
+				<input class = "formInp" type = "password" placeholder = "password"></input><br>
+				<input class = "formInp" type = "password" placeholder = "confirm password"></input><br>
+				<select class = "formInp" >
+					<option value = "selectOne">please select a gender</option>
+					<option value = "Male">Male</option>
+					<option value = "Female">Female</option>
+
+				</select><br>
+
+
+
+				<input id = "dateOfBirth" class = "formInp" type = "date" placeholder = "date of birth" onkeyup="handleDateInput('dateOfBirth')"></input><br><br>
+				<input class = "formInp" type = "button" value = "Go!"></input><br>
+
+				</center>
+			</div>
+
+
+
+		</div>
+
+	</body>
+</html>

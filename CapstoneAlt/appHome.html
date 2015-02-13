@@ -1,0 +1,78 @@
+<!-- 
+	Color Pallet used:
+
+    006400 --green
+    B0C4DE --grey
+    0099CC --darkBlue
+    CCFFFF --lightBlue
+
+
+-->
+
+
+<html>
+	<head>
+		<script language = "javascript" src = "js/changePages.js">
+			
+		</script>
+		<script language = "javascript">
+			var previousSubPage="Home";
+			var recording = 0;
+			function showRecording()
+			{
+				
+				if(!recording){
+					document.getElementById("recordingDock").style.backgroundColor = "red";
+					document.getElementById("recordImg").style.animation = "bounceUp 1s";
+					recording = 1;
+				}
+				else{
+					document.getElementById("recordingDock").style.backgroundColor = "";
+					document.getElementById("recordImg").style.animation = "";					
+					recording = 0;
+				}
+			}
+			
+		</script>
+	<LINK href="css/styles.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+
+		<div class = "header">
+			<center>
+				<b>
+					<img class = "title" src = "images/wellnessNetLogo.png"></img>
+				</b>
+			</center>
+		</div>
+		<div class = "footer">
+			<center>
+				<img src = "images/magnifyingGlass.png" class = "navigationIcon" onclick="switchSubPage('Home')"></img>
+				<img src = "images/clock.png" class = "navigationIcon" onclick="switchSubPage('Recent')"></img>
+				<img src = "images/map.png" class = "navigationIcon" onclick="switchSubPage('Local')"></img>
+			</center>
+		</div>
+		<div id = "container">
+			
+			<div id = "Home" class = "subpage" style="opacity:1; pointer-events: auto; top:12.5%; bottom:10%">
+				this is the homepage
+
+				<div id = "microphoneDock">
+					<center>
+						<div id = "recordingDock">
+							<img height = "175%" src = "images/microphone.png" id = "recordImg" onclick="showRecording()" style = "cursor:pointer;"/>
+						</div>
+					</center>
+				</div>
+
+			</div>
+			<div id = "Recent" class = "subpage" >
+				this is the Recents page
+			</div>
+			<div id = "Local" class="subpage">
+				this is a map
+			</div>
+
+		</div>
+	</body>
+</html>
