@@ -23,12 +23,15 @@
 				
 				if(!recording){
 					document.getElementById("recordingDock").style.backgroundColor = "red";
-					document.getElementById("recordImg").style.animation = "bounceUp 1s";
+					document.getElementById("recordImg").style.animation = "spin .5s";
+					document.getElementById("recordImg").style.WebkitAnimation = "spin .5s";
+
 					recording = 1;
 				}
 				else{
 					document.getElementById("recordingDock").style.backgroundColor = "";
-					document.getElementById("recordImg").style.animation = "";					
+					document.getElementById("recordImg").style.animation = "";
+					document.getElementById("recordImg").style.WebkitAnimation = "";				
 					recording = 0;
 				}
 			}
@@ -47,9 +50,9 @@
 		</div>
 		<div class = "footer">
 			<center>
-				<img src = "images/magnifyingGlass.png" class = "navigationIcon" onclick="switchSubPage('Home')"></img>
-				<img src = "images/clock.png" class = "navigationIcon" onclick="switchSubPage('Recent')"></img>
-				<img src = "images/map.png" class = "navigationIcon" onclick="switchSubPage('Local')"></img>
+				<img id = "btn_home" src = "images/magnifyingGlass.png" class = "navigationIcon" onclick="switchPageNavIcons('Home', 'btn_home')"></img>
+				<img id = "btn_clock" src = "images/clock.png" class = "navigationIcon" onclick="switchPageNavIcons('Recent', 'btn_clock')"></img>
+				<img id = "btn_pushPin" src = "images/map.png" class = "navigationIcon" onclick="switchPageNavIcons('Local', 'btn_pushPin')"></img>
 			</center>
 		</div>
 		<div id = "container">

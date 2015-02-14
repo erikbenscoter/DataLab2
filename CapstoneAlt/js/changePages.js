@@ -1,3 +1,4 @@
+var groaPasser;
 function switchSubPage(nextSubPage)
 {
 
@@ -12,6 +13,21 @@ function switchSubPage(nextSubPage)
 
 	previousSubPage = nextSubPage;
 	
+}
+function switchPageNavIcons(nextSubPage, btnToAnimate){
+	var btn = document.getElementById(btnToAnimate);
+	btn.style.animation = "wiggle 1s";
+	btn.style.WebkitAnimation = "wiggle 1s";
+	switchSubPage(nextSubPage);
+	groaPasser = btn;
+	setTimeout("getRidOfAnimation()",1000);
+	
+}
+
+function getRidOfAnimation(){
+	groaPasser.style.animation = "";
+	groaPasser.style.webkitAnimation = "";
+
 }
 function switchSubPageWithDepressingButton(buttonID, nextSubPage)
 { 
