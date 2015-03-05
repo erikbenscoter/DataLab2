@@ -12,8 +12,9 @@
 
 <html>
 	<head>
+		<script language = "javascript" src = "js/recorder.js"></script>
 		<script language = "javascript" src = "js/changePages.js">
-			
+		
 		</script>
 		<script language = "javascript">
 			var previousSubPage="Home";
@@ -26,12 +27,17 @@
 					document.getElementById("recordImg").style.animation = "spin .5s";
 					document.getElementById("recordImg").style.WebkitAnimation = "spin .5s";
 
+					buttonPressed('r');
+
 					recording = 1;
 				}
 				else{
 					document.getElementById("recordingDock").style.backgroundColor = "";
 					document.getElementById("recordImg").style.animation = "";
-					document.getElementById("recordImg").style.WebkitAnimation = "";				
+					document.getElementById("recordImg").style.WebkitAnimation = "";	
+
+					buttonPressed('s');	
+							
 					recording = 0;
 				}
 			}
