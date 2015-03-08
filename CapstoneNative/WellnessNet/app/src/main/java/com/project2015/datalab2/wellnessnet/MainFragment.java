@@ -46,11 +46,14 @@ public class MainFragment extends android.support.v4.app.Fragment{
 
                 //check if we are showing that we are recording, if yes, stop the drawing
                     //if not stop the drawing
+                //MAY NEED TO BE MULTI-THREADED
                 if(recordStatus.isSupposedToBeDrawn() == false) {
                     recordStatus.setSupposedToBeDrawn(true);
+                    System.out.println("    \t Recording.....");
                     tapeRecorder.startRecording();
                 }
                 else {
+                    System.out.println("\t\t Stopped Recording.....");
                     recordStatus.setSupposedToBeDrawn(false);
                     tapeRecorder.stopRecording();
                 }

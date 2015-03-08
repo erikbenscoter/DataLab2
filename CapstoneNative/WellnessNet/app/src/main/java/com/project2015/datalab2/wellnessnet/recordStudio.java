@@ -3,6 +3,10 @@ package com.project2015.datalab2.wellnessnet;
 import android.media.MediaRecorder;
 import android.os.Environment;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -14,9 +18,19 @@ public class recordStudio {
     public String l_outputFile;
     boolean isRecording = false;
 
+
     public recordStudio(){
-        l_outputFile = Environment.getExternalStorageDirectory().getAbsolutePath();
-        l_outputFile += "/output.3gp";
+        try {
+
+            l_outputFile = Environment.getExternalStorageDirectory().getAbsolutePath();
+            System.out.println("FILE DIR:  "+l_outputFile);
+
+
+
+        }catch(Exception e) {
+            System.out.println("ERROR FOUND SAVING FILE: "+ e);
+        }
+        l_outputFile += "/RecordingOutput.3gp";
         System.out.println("file name: " + l_outputFile);
     }
     //call this function to start recording
@@ -24,8 +38,9 @@ public class recordStudio {
         l_mediaRecorder = new MediaRecorder();
         l_mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         l_mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        l_mediaRecorder.setOutputFile(l_outputFile);
         l_mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        l_mediaRecorder.setOutputFile(l_outputFile);
 
         try {
             l_mediaRecorder.prepare();
@@ -50,6 +65,8 @@ public class recordStudio {
         l_mediaRecorder = null;
 
         System.out.println("Stopped Recording");
+
+
     }
 
 
