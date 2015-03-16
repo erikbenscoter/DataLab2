@@ -2,6 +2,7 @@ package com.project2015.datalab2.wellnessnet;
 
 import java.util.Locale;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,7 +37,9 @@ public class MainActivity extends ActionBarActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    ViewPager mViewPager;
+    myViewPager mViewPager;
+    boolean lockOnCurrentFragment = false;
+    Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (myViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
     }
@@ -76,6 +81,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+
+
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -97,38 +105,43 @@ public class MainActivity extends ActionBarActivity {
 
             Fragment fragment;
 
-            switch(fragmentNumber){
-                case 0:     WelcomeFragment wf = new WelcomeFragment();
-                            fragment = (Fragment) wf;
-                            break;
+            //test to see if we are locked on a fragment or not
 
-                case 1:     MainFragment mf = new MainFragment();
-                            fragment = (Fragment) mf;
-                            break;
+                switch (fragmentNumber) {
+                    //case 0:     WelcomeFragment wf = new WelcomeFragment();
+                    //            fragment = (Fragment) wf;
+                    //            break;
 
-                case 2:     RecentDiagnoses rd = new RecentDiagnoses();
-                            fragment = (Fragment) rd;
-                            break;
+                    case 0:
+                        MainFragment mf = new MainFragment();
+                        fragment = (Fragment) mf;
+                        break;
 
-                default:    YourDiagnoses yd = new YourDiagnoses();
-                            fragment = (Fragment) yd;
-                            break;
+                    case 1:
+                        RecentDiagnoses rd = new RecentDiagnoses();
+                        fragment = (Fragment) rd;
+                        break;
 
-
-
-
-            }
-
-            return fragment;
+                    default:
+                        YourDiagnoses yd = new YourDiagnoses();
+                        fragment = (Fragment) yd;
+                        break;
 
 
-            //return PlaceholderFragment.newInstance(position + 1);
+                }
+                currentFragment = fragment;
+                return fragment;
+
+
+
+
+
         }
 
         @Override
         public int getCount() {
             //display three pages
-            return 4;
+            return 3;
         }
 
         @Override
@@ -177,6 +190,25 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+    ////////////////////////////////setters and getters//////////////////////////////////////////////
+    public boolean isLockOnCurrentFragment(){return this.mViewPager.isLockOnCurrentFragment;}
+
+    public void setLockOnCurrentFragment(boolean inputValue){this.mViewPager.setLockOnCurrentFragment(inputValue);}
+
+
 
 }
