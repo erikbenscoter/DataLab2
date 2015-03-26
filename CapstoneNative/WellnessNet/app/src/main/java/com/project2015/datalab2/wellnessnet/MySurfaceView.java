@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 import android.view.View;
@@ -20,7 +22,8 @@ public class MySurfaceView extends View{
     private int waitMiliseconds = 60;               //how many ms between frames
     private int minSize = 80;                       //how many small can the circle radius get
     private float radius = minSize;                 //initial size of the circle
-
+    private Sensors mySensorClass;                  //will hold the Sensors class
+    private int x,y,z;                           //will hold xyz vectors
 
     public MySurfaceView(Context context) {
         super(context);
@@ -28,6 +31,7 @@ public class MySurfaceView extends View{
 
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        x = y = z = 1;                               //initialization
     }
 
     @Override
@@ -41,19 +45,36 @@ public class MySurfaceView extends View{
                 centerHorizontal = c.getWidth() / 2;
                 centerVertical = c.getHeight() / 2;
 
+
                 Paint redPaint;
                 redPaint = new Paint();
                 redPaint.setColor(Color.RED);
                 redPaint.setStyle(Paint.Style.FILL);
+
+                Paint textPaint;
+                textPaint = new Paint();
+                textPaint.setColor(Color.BLACK);
+                textPaint.setTextSize(c.getHeight()/12);
+                int total = (int) (x+y+z);
+                c.drawText("x=" + (int) (x/9.81 * 100) + "% y=" + (int) (y/9.81 * 100)
+                                + "% z= "+ (int) (z/9.81 * 100) + "%",c.getWidth()/100,centerVertical/8,textPaint);
 
                 c.drawCircle(centerHorizontal, centerVertical, radius, redPaint);
 
                 continuousRedraw();
             }
         }
+        public void getXYZ(){
+            x=(int) mySensorClass.getX();
+            y=(int) mySensorClass.getY();
+            z=(int) mySensorClass.getZ();
+            System.out.println("x = "+x);
+            System.out.println("y= "+y);
+            System.out.println("z= "+z);
 
+        }
         public void continuousRedraw() {
-
+            getXYZ();
             if(grow == true){
                 if(radius < maxSize)
                     radius += sizeChangeGrow;
@@ -143,6 +164,9 @@ public class MySurfaceView extends View{
             public void setRadius(float radius) {
                 this.radius = radius;
             }
+
+            public void setMySensorClass(Sensors input){this.mySensorClass = input;}
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

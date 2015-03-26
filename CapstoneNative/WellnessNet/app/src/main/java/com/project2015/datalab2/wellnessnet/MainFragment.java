@@ -23,12 +23,14 @@ public class MainFragment extends android.support.v4.app.Fragment{
     //locals
 
     recordStudio tapeRecorder;
+    Sensors mySensorClass;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         tapeRecorder = new recordStudio();
+        mySensorClass = new Sensors(getActivity());
 
         // Inflate the layout for this fragment
 
@@ -44,7 +46,9 @@ public class MainFragment extends android.support.v4.app.Fragment{
             public void onClick(View v) {
                 //set some locals
                 MySurfaceView recordStatus = (MySurfaceView) thisFragment.findViewById(R.id.surfaceView);   //this gets the canvas on which to paint
+                recordStatus.setMySensorClass(mySensorClass);
                 MainActivity activityRunningFragment = (MainActivity) thisFragment.getContext();            //this gets the Activity running this fragment
+
 
                 //check if we are showing that we are recording, if yes, stop the drawing
                     //if not stop the drawing
@@ -57,6 +61,8 @@ public class MainFragment extends android.support.v4.app.Fragment{
                                                                                                                 //because we are recording
 
                     tapeRecorder.startRecording();                                                          //begin the recording
+
+
                 }
                 else {
                     System.out.println("\t\t Stopped Recording.....");                                      //used for debug
@@ -65,8 +71,10 @@ public class MainFragment extends android.support.v4.app.Fragment{
 
                     tapeRecorder.stopRecording();                                                           //stop the actual recording
                 }
-                //redraw appropriately
 
+
+
+                //redraw appropriately
                 recordStatus.invalidate();                                                                  //redraw the screen so the
                                                                                                             //animation can begin
 

@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
     boolean lockOnCurrentFragment = false;
     Fragment currentFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
