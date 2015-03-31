@@ -9,7 +9,7 @@ var audioInput = null;
 var sampleRate = 44100;
 var audioContext = null;
 var context = null;
-var outputElement = document.getElementById('output');
+//var outputElement = document.getElementById('output');
 var outputString;
 
 // feature detection 
@@ -32,14 +32,14 @@ function buttonPressed(input){
         // reset the buffers for the new recording
         leftchannel.length = rightchannel.length = 0;
         recordingLength = 0;
-        outputElement.innerHTML = 'Recording now...';
+        //outputElement.innerHTML = 'Recording now...';
     // if S is pressed, we stop the recording and package the WAV file
     } else if ( input == 's' ){
         
         // we stop recording
         recording = false;
         
-        outputElement.innerHTML = 'Building wav file...';
+        //outputElement.innerHTML = 'Building wav file...';
 
         // we flat the left and right channels down
         var leftBuffer = mergeBuffers ( leftchannel, recordingLength );
@@ -82,7 +82,7 @@ function buttonPressed(input){
         var blob = new Blob ( [ view ], { type : 'audio/wav' } );
         
         // let's save it locally
-        outputElement.innerHTML = 'Handing off the file now...';
+        //outputElement.innerHTML = 'Handing off the file now...';
         var url = (window.URL || window.webkitURL).createObjectURL(blob);
         var link = window.document.createElement('a');
         link.href = url;

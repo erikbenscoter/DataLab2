@@ -1,7 +1,7 @@
-	.header{position: absolute; height:12.5%; top:0%;display:inline-block;background-color:#0099CC; left:0; width:100%; padding-bottom:0%;}
+	.header{position: absolute; height:12.5%; top:0%;display:inline-block;background-color:#003F87; left:0; width:100%; padding-bottom:0%;}
 	.title{height:100%; max-width: 90%}
 	.subpage{position:absolute; top:0%; bottom:100%; left:0%; width:100%;opacity: 0; pointer-events:none; padding:0%;overflow: auto; font-size: 3vh}
-	.footer{position: absolute; height:12.5%; bottom:0%;display:inline-block;background-color:#0099CC; left:0; width:90%; padding-left:5%; padding-right:5%;}
+	.footer{position: absolute; height:12.5%; bottom:0%;display:inline-block;background-color:#003F87; left:0; width:90%; padding-left:5%; padding-right:5%;}
 	.navigationIcon{height:90%; max-width: 8% margin-left:5%; margin-right:5%;cursor:pointer;}
 			
 	#microphoneDock{position: absolute; bottom:12.5%; height:12.5%; width:100%;left:0%;}
