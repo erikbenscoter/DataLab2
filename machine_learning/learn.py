@@ -41,8 +41,40 @@ def learn(origStr, totalDict, groundTruth):
 	
 	#comapre last used to current topTen
 
-	lastUsed = loadWordsFromFile("LastUsed.txt")	#get dictionary of last top ten
-	
+	lastUsedDict = loadWordsFromFile("LastUsed.txt")	#get dictionary of last top ten
+	lastLoadedBool = False
+
+	RetrievedFromLostDict
+
+	for element in lastUsedDict.keys():
+		if not element in lastUsedDict:
+			if lastLoadedBool == false:
+				lostDict = loadWordsFromFile("lost.txt")
+				lastLoadedBool = true
+			if not element in lostDict:
+				RetrievedFromLostDict[element] = 1
+				else:
+					keysFoundFromLost[element]=lostDict[element]
+					lostDict[element]=null
+	needToStore = False					
+	for element in topTenPercentKeys:
+		if not element in lastUsedDict:
+			needToStore = true
+
+	totalDict
+	for element in topTenPercentKeys:
+		if element in lastUsedDict.keys():
+			totalDict[element]=lastUsedDict[element]
+			else:
+				totalDict[element]=RetrievedFromLostDict[element]
+
+	if needToStore == True:
+		storeWordsToFile(totalDict,"lastUsed.txt")
+
+
+
+
+
 
 
 
@@ -63,4 +95,3 @@ def learn(origStr, totalDict, groundTruth):
 	#return sickOrNot
 #def loadWeight():
 #def storeWeight():
-learn()
