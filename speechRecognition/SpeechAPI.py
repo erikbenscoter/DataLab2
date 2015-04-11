@@ -1,7 +1,7 @@
 import speech_recognition as sr
-def transcribeNow():
+def transcribeNow(fileName):
 	r = sr.Recognizer()
-	with sr.WavFile("test.wav") as source:              # use "test.wav" as the audio source
+	with sr.WavFile(str(fileName)) as source:              # use "test.wav" as the audio source
 	    r.energy_threshold = 1
 	    audio = r.record(source)                        # extract audio data from the file
 

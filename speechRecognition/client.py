@@ -14,7 +14,7 @@ def readFromFile(f):
 	return l
 
 s = socket.socket()         # Create a socket object
-host = '66.71.42.141' 			# Get local machine name
+host = 'localhost'    # Get local machine name
 port = 8000                # Reserve a port for your service.
 
 print "host = " + host +" port = " + str(port)
