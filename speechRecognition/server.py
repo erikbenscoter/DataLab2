@@ -8,11 +8,16 @@ import socket               # Import socket module
 s = socket.socket()         # Create a socket object
 host = '0.0.0.0'			 # Get local machine name
 port = 8000                # Reserve a port for your service.
-s.bind((host, port))        # Bind to the port
+try:
+	s.bind((host, port))        # Bind to the port
+except:
+	"there was a problem connecting to the port"
 print "host = " + host + "port = " + str(port)
 s.listen(5)                 # Now wait for client connection.
 threadCounter = 0
 listThread = []
+minimalConfidence = 50.00
+confident = 0
 
 
 def saveFile(threadNumber):
@@ -30,10 +35,20 @@ def saveFile(threadNumber):
 	f.close()
 	print "file closed\n"
 	print "beginning transcribing \n"
-	sp.transcribeNow(fileName)
+	(originalString,confidence) = sp.transcribeNow(fileName)
 	print "exiting transcribing\n"
-	print "thread "+ str(threadNumber) +" is running"
-	time.sleep(5)
+	print str(originalString) + "\t" + str(confidence)
+	#print "thread "+ str(threadNumber) +" is running"
+	#add the full string to the database
+
+	#while loop for confidence change the threshold
+	if(confidence >= minimalConfidence):
+		print "we are confident enough in the transcription"
+		confident = 1
+	else:
+		confident = 0
+
+
 	
 
 while True:

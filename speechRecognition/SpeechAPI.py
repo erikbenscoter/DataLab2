@@ -10,5 +10,7 @@ def transcribeNow(fileName):
 	    print("Possible transcriptions:")
 	    for prediction in list:
 	        print(" " + prediction["text"] + " (" + str(prediction["confidence"]*100) + "%)")
+	    return (list[0]["text"],list[0]["confidence"]*100)
 	except LookupError:                                 # speech is unintelligible
 	    print("Could not understand audio")
+
