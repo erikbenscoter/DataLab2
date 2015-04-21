@@ -1,7 +1,7 @@
 #!/usr/bin/python           # This is client.py file
 
 import socket               # Import socket module
-
+import time
 def openFile():
 	
 	f = open("input.wav","rb")
@@ -36,4 +36,18 @@ while(l):
 	l=readFromFile(f)
 f.close()
 print "closed file\n"
+
+s.settimeout(2*60)
+print "line before receiving..."
+concatonatedString = ""
+try:
+	returnedString = s.recv(1024)
+	
+except:
+	print "ran across exception"
+
+print "line after receiving..."
+concatonatedString = "" + returnedString
+continueChecking = True
+print concatonatedString
 s.close()                    # Close the socket when done

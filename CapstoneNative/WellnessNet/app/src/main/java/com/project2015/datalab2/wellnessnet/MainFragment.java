@@ -2,6 +2,7 @@ package com.project2015.datalab2.wellnessnet;
 
 
 
+        import android.app.Activity;
         import android.content.Context;
         import android.graphics.Canvas;
         import android.graphics.Color;
@@ -13,6 +14,9 @@ package com.project2015.datalab2.wellnessnet;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ImageView;
+        import android.widget.Toast;
+
+        import java.io.IOException;
 
 
 /**
@@ -24,6 +28,8 @@ public class MainFragment extends android.support.v4.app.Fragment{
 
     recordStudio tapeRecorder;
     Sensors mySensorClass;
+    boolean waitingForResponse;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +54,7 @@ public class MainFragment extends android.support.v4.app.Fragment{
                 MySurfaceView recordStatus = (MySurfaceView) thisFragment.findViewById(R.id.surfaceView);   //this gets the canvas on which to paint
                 recordStatus.setMySensorClass(mySensorClass);
                 MainActivity activityRunningFragment = (MainActivity) thisFragment.getContext();            //this gets the Activity running this fragment
-
+                recordStatus.continuousRedraw();
 
                 //check if we are showing that we are recording, if yes, stop the drawing
                     //if not stop the drawing
@@ -69,14 +75,39 @@ public class MainFragment extends android.support.v4.app.Fragment{
                     recordStatus.setSupposedToBeDrawn(false);                                               //stop drawing the record status
                     activityRunningFragment.setLockOnCurrentFragment(false);                                 //unlock the user to the recording fragment
 
-                    tapeRecorder.stopRecording();                                                           //stop the actual recording
+                    tapeRecorder.stopRecording();
+
+
+                    System.out.println("about to begin sending the audio file, "+ tapeRecorder.getL_outputFile().toString());
+
+                    Transmitter t = new Transmitter(getActivity());
+
+                    final String returnedString;
+                    returnedString = t.sendVoice(tapeRecorder.getL_outputFile());
+                    waitingForResponse= true;
+                    class MyThread extends Thread{
+                        Transmitter t;
+                        MySurfaceView msv;
+                        @Override
+                        public void run() {
+                            while (t.returnString == null);
+                            //display the string
+                            waitingForResponse = false;
+                            System.out.println("thread printing "+ t.returnString);
+                            msv.setReturnedString(t.returnString);
+                        }
+                    };
+                    MyThread mt = new MyThread();
+                    mt.t = t;
+                    mt.msv = recordStatus;
+                    mt.start();
+
+
                 }
 
 
 
-                //redraw appropriately
-                recordStatus.invalidate();                                                                  //redraw the screen so the
-                                                                                                            //animation can begin
+
 
 
 
@@ -88,6 +119,5 @@ public class MainFragment extends android.support.v4.app.Fragment{
 
         return thisFragment;
     }
-
 
 }

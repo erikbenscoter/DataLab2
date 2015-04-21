@@ -4,11 +4,10 @@ import threading
 import thread
 import time
 import socket               # Import socket module
-import os
 
 s = socket.socket()         # Create a socket object
 host = '0.0.0.0'			 # Get local machine name
-port = 12345             # Reserve a port for your service.
+port = 7999             # Reserve a port for your service.
 try:
 	s.bind((host, port))        # Bind to the port
 except:
@@ -19,9 +18,6 @@ threadCounter = 0
 listThread = []
 minimalConfidence = 70.00
 
-def convert3gToWav(fileName,newFileName):
-	print "Converting "+str(fileName)+" to wav format"
-	os.system("ffmpeg -i "+str(fileName)+" -vn -acodec pcm_s16le -ar 44100 -ac 2 "+str(newFileName))
 
 
 def saveFile(threadNumber, client):
@@ -31,10 +27,8 @@ def saveFile(threadNumber, client):
 
 	#start receiving
 	print "i made it to the thread!!"
-	extension = ".3gp"
-	newExtension = ".wav"
-	fileName = 'test'+str(threadNumber)
-	f = open(str(fileName)+str(extension),'wb')
+	fileName = 'test'+str(threadNumber)+'.wav'
+	f = open(str(fileName),'wb')
 	streamed = client.recv(1024)
 	print "received part"
 	timeout = False
@@ -49,41 +43,25 @@ def saveFile(threadNumber, client):
 		print "received part"
 	f.close()
 	print "file closed\n"
-	convert3gToWav(str(fileName)+str(extension),str(fileName)+str(newExtension))
-
 	print "beginning transcribing \n"
-	try:
-		(originalString,confidence) = sp.transcribeNow(str(fileName)+str(newExtension),threshold)
-		print "exiting transcribing\n"
-		answer =  str(originalString) + "\t" + str(confidence)+"\n"
-		if(confidence >= minimalConfidence):
-			print "we are confident enough in the transcription"
-			confident = 1
-		else:
-			answer =  "we are not very confident in the transcription\n"
-			confident = 0
-		canSend = 1
-		print "about to send..."
-		#while canSend:
-		client.settimeout(4)
-		print "line before sending..."
-		try:
-			canSend = client.send(str(answer))
-			print "sent"
-		except:
-			print "there was an exception"
-	except:
-		print "couldn't transcribe"
-		answer = "couldn't transcribe\n"
-		client.settimeout(4)
-		print "line before sending..."
-		try:
-			canSend = client.send(str(answer))
-			print "sent"
-		except:
-			print "there was an exception"
-
-	client.close()
+	while confidence < minimalConfidence and threshold < 4000:
+		(originalString,confidence) = sp.transcribeNow(fileName,threshold)
+		threshold = threshold + 200
+	print "exiting transcribing\n"
+	answer =  str(originalString) + "\t" + str(confidence)
+	if(confidence >= minimalConfidence):
+		print "we are confident enough in the transcription"
+		confident = 1
+	else:
+		answer =  "we are not very confident in the transcription"
+		confident = 0
+	canSend = 1
+	print "about to send..."
+	#while canSend:
+	client.settimeout(4)
+	print "line before sending..."
+	canSend = client.send(str(answer))
+	print "sent atleast once..."
 
 
 	
