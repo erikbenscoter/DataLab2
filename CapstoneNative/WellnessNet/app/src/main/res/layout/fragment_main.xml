@@ -37,7 +37,7 @@
             android:textColor="@color/DarkBlue"
             android:textSize="35dp" />
 
-        <TextView
+        TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -49,7 +49,7 @@
         <com.project2015.datalab2.wellnessnet.MySurfaceView
             android:layout_width="fill_parent"
             android:id="@+id/surfaceView"
-            android:layout_height="321dp" />
+            android:layout_height= "fill_parent" />
 
     </LinearLayout>
 

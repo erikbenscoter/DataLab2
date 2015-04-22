@@ -9,6 +9,7 @@ import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by erikbenscoter on 3/7/15.
@@ -51,8 +52,14 @@ public class MySurfaceView extends View implements Runnable{
                 textPaint.setColor(Color.BLACK);
                 textPaint.setTextSize(c.getHeight()/12);
                 c.drawText(returnedString,c.getWidth()/100,centerVertical/8,textPaint);
+                if(returnedString!=""){
+                    Toast toast = Toast.makeText(getContext(),returnedString,Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
                 if(firstDraw){
 
+                    c.drawText("Please Press The Microphone and Explain Your Symptoms",0,0,textPaint);
                     firstDraw = false;
                 }
                 else{

@@ -23,5 +23,6 @@
     <string name="tab1">Search</string>
     <string name="tab2">Near You</string>
     <string name="tab3">History</string>
+    <string name="title_activity_correct_string">CorrectStringActivity</string>
 
 </resources>

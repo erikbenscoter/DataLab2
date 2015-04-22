@@ -4,6 +4,7 @@ package com.project2015.datalab2.wellnessnet;
 
         import android.app.Activity;
         import android.content.Context;
+        import android.content.Intent;
         import android.graphics.Canvas;
         import android.graphics.Color;
         import android.graphics.Paint;
@@ -54,7 +55,8 @@ public class MainFragment extends android.support.v4.app.Fragment{
                 MySurfaceView recordStatus = (MySurfaceView) thisFragment.findViewById(R.id.surfaceView);   //this gets the canvas on which to paint
                 recordStatus.setMySensorClass(mySensorClass);
                 MainActivity activityRunningFragment = (MainActivity) thisFragment.getContext();            //this gets the Activity running this fragment
-                recordStatus.continuousRedraw();
+                recordStatus.setReturnedString("");
+                new Thread(recordStatus).start();
 
                 //check if we are showing that we are recording, if yes, stop the drawing
                     //if not stop the drawing
@@ -85,30 +87,12 @@ public class MainFragment extends android.support.v4.app.Fragment{
                     final String returnedString;
                     returnedString = t.sendVoice(tapeRecorder.getL_outputFile());
                     waitingForResponse= true;
-                    class MyThread extends Thread{
-                        Transmitter t;
-                        MySurfaceView msv;
-                        @Override
-                        public void run() {
-                            while (t.returnString == null);
-                            //display the string
-                            waitingForResponse = false;
-                            System.out.println("thread printing "+ t.returnString);
-                            msv.setReturnedString(t.returnString);
-                        }
-                    };
-                    MyThread mt = new MyThread();
-                    mt.t = t;
-                    mt.msv = recordStatus;
-                    mt.start();
+
+                    new Thread(new CorrectionActivityCreator(recordStatus,t)).start();
+
 
 
                 }
-
-
-
-
-
 
 
             }
@@ -118,6 +102,27 @@ public class MainFragment extends android.support.v4.app.Fragment{
 
 
         return thisFragment;
+    }
+
+    public class CorrectionActivityCreator implements Runnable{
+        MySurfaceView msv;
+        Transmitter t;
+        public CorrectionActivityCreator(MySurfaceView msv,Transmitter t){
+            this.msv = msv;
+            this.t = t;
+        }
+        @Override
+        public void run() {
+            while (t.returnString == null);
+            //msv.setMode("spinning");
+            //display the string
+            waitingForResponse = false;
+            Intent intent = new Intent(getActivity(),CorrectStringActivity.class);
+            //pass parameters
+            intent.putExtra("StringFromServer",t.returnString);
+            startActivity(intent);
+
+        }
     }
 
 }

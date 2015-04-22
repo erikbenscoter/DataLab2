@@ -8,7 +8,7 @@ import os
 
 s = socket.socket()         # Create a socket object
 host = '0.0.0.0'			 # Get local machine name
-port = 12345             # Reserve a port for your service.
+port = 8002             # Reserve a port for your service.
 try:
 	s.bind((host, port))        # Bind to the port
 except:
@@ -17,7 +17,7 @@ print "host = " + host + "port = " + str(port)
 s.listen(5)                 # Now wait for client connection.
 threadCounter = 0
 listThread = []
-minimalConfidence = 70.00
+minimalConfidence = 0
 
 def convert3gToWav(fileName,newFileName):
 	print "Converting "+str(fileName)+" to wav format"
@@ -72,9 +72,9 @@ def saveFile(threadNumber, client):
 			print "sent"
 		except:
 			print "there was an exception"
-	except:
-		print "couldn't transcribe"
-		answer = "couldn't transcribe\n"
+	except Exception,e:
+		print str(e)
+		answer = str(e) + "\n"
 		client.settimeout(4)
 		print "line before sending..."
 		try:
