@@ -18,16 +18,16 @@ def parse():
 		if(groundTruth == 'health' or groundTruth=='sick'):
 			tokened.append(1)
 			doubleArray.append(tokened)
-			print("healthy")
+#			print("healthy")
 		else:
 			if( groundTruth == 'no'):
 		 		tokened.append(0)
 		 		doubleArray.append(tokened)
-		 		print("sick")
+#		 		print("sick")
 		 	else:
 		 		#do nothing they are scrap
 		 		count = count + 1
-		 		print("not applicable")
-		 		print count
+#		 		print("not applicable")
+#		 		print count
 	return doubleArray
 parse()
