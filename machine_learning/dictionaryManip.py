@@ -1,6 +1,8 @@
 import numpy as np
 import parseFile as ps
 import sklearn.linear_model as slm
+from nltk.stem.lancaster import LancasterStemmer
+from nltk.corpus import stopwords
 
 
 model = slm.LogisticRegression(penalty='l2',dual=False,fit_intercept = False,class_weight = 'auto')
@@ -41,29 +43,39 @@ def loadFeatureFromFile(filename):
 
 #THIS SHOULD ONLY BE RUN ON AN EMPTY TESTER.TEXT FILE
 def onlyOnInit():
+	st = LancasterStemmer()
 	yes = dict()
 	no = dict()
 	(yes,no) = loadWordsFromFile('tester.txt')
 	valText = ps.parse()
+	stemmedWordList = []
 	#for each tweet, manipulate dictionary (part of training)
 	for row in valText:
 		#pop V bit from end of row
 		V = row.pop(-1)
-		for word in row:
+		filtered_words = [w for w in row if not w in stopwords.words('english')]
+		#print "stemmed" + str([w for w in row if w in stopwords.words('english')])
+		for word in filtered_words:
 			#if the key does not exist in the dictionary, add it with 1 weight
-			if yes.get(word, 'none') == 'none':
-				if(V==1):
-					yes[word] = 1	
-					no[word] = 0
+			try:
+				prevWord = word
+				word = st.stem(str(word))
+				word = str(word)
+				if yes.get(word, 'none') == 'none':
+					if(V==1):
+						yes[word] = 1	
+						no[word] = 0
+					else:
+						yes[word] = 0
+						no[word] = 1
 				else:
-					yes[word] = 0
-					no[word] = 1
-			else:
-				if(V==1):
-					yes[word] += 1
-					#print words[word]
-				else:
-					no[word] += 1
+					if(V==1):
+						yes[word] += 1
+						#print words[word]
+					else:
+						no[word] += 1
+			except:
+				print "Exception " + str(prevWord)
 	storeWordsToFile(yes, no,'tester.txt')
 
 '''
@@ -127,6 +139,7 @@ def trainData():
 			counter = counter + 1
 		x.append(featNum)
 		#print x	
+	
 	model.fit(x,target)
 
 	givenAnswer = model.predict(x)
