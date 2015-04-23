@@ -25,7 +25,7 @@ import java.net.Socket;
 public class Transmitter extends AsyncTask {
     private Socket socky;
     private int port = 8002;
-    private String serverIP = "192.168.1.5";
+    private String serverIP = "75.102.96.26";
     private int timeoutBeforeError = 1 * 60 * 1000; //one minute
     char voiceOrText;
     String fileNameOrStringToSend;
