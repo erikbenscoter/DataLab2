@@ -1,7 +1,7 @@
 #!/usr/bin/python           # This is client.py file
 
 import socket               # Import socket module
-
+import time
 def openFile():
 	
 	f = open("input.wav","rb")
@@ -14,7 +14,7 @@ def readFromFile(f):
 	return l
 
 s = socket.socket()         # Create a socket object
-host = '66.71.42.141' 			# Get local machine name
+host = 'localhost'    # Get local machine name
 port = 8000                # Reserve a port for your service.
 
 print "host = " + host +" port = " + str(port)
@@ -36,4 +36,18 @@ while(l):
 	l=readFromFile(f)
 f.close()
 print "closed file\n"
+
+s.settimeout(2*60)
+print "line before receiving..."
+concatonatedString = ""
+try:
+	returnedString = s.recv(1024)
+	
+except:
+	print "ran across exception"
+
+print "line after receiving..."
+concatonatedString = "" + returnedString
+continueChecking = True
+print concatonatedString
 s.close()                    # Close the socket when done

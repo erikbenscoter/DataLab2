@@ -9,11 +9,12 @@ import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by erikbenscoter on 3/7/15.
  */
-public class MySurfaceView extends View{
+public class MySurfaceView extends View implements Runnable{
     private boolean grow = true;                    //is the recording circle growing in size
     private boolean supposedToBeDrawn = false;      //is the drawing supposed to be drawn
     private int sizeChangeGrow = 1;                 //how fast does the circle grow
@@ -24,14 +25,17 @@ public class MySurfaceView extends View{
     private float radius = minSize;                 //initial size of the circle
     private Sensors mySensorClass;                  //will hold the Sensors class
     private int x,y,z;                           //will hold xyz vectors
-
+    private String returnedString = "";              //will hold the returned string
+    boolean firstDraw = true;
     public MySurfaceView(Context context) {
         super(context);
+
     }
 
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         x = y = z = 1;                               //initialization
+
     }
 
     @Override
@@ -39,7 +43,28 @@ public class MySurfaceView extends View{
             super.draw(c);
             //c.drawCircle(cx,cy,radius,paint);
             if(!supposedToBeDrawn){
+                int centerHorizontal, centerVertical;
+                centerHorizontal = c.getWidth() / 2;
+                centerVertical = c.getHeight() / 2;
                 System.out.println("nothing is supposed to be drawn yet");
+                Paint textPaint;
+                textPaint = new Paint();
+                textPaint.setColor(Color.BLACK);
+                textPaint.setTextSize(c.getHeight()/12);
+                c.drawText(returnedString,c.getWidth()/100,centerVertical/8,textPaint);
+                if(returnedString!=""){
+                    Toast toast = Toast.makeText(getContext(),returnedString,Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
+                if(firstDraw){
+
+                    c.drawText("Please Press The Microphone and Explain Your Symptoms",0,0,textPaint);
+                    firstDraw = false;
+                }
+                else{
+                    continuousRedraw();
+                }
             }else {
                 int centerHorizontal, centerVertical;
                 centerHorizontal = c.getWidth() / 2;
@@ -59,10 +84,12 @@ public class MySurfaceView extends View{
                 c.drawText("x=" + (int) (x/9.81 * 100) + "% y=" + (int) (y/9.81 * 100)
                                 + "% z= "+ (int) (z/9.81 * 100) + "%",c.getWidth()/100,centerVertical/8,textPaint);
 
-                c.drawCircle(centerHorizontal, centerVertical, radius, redPaint);
 
+                c.drawCircle(centerHorizontal, centerVertical, radius, redPaint);
                 continuousRedraw();
+
             }
+
         }
         public void getXYZ(){
             x=(int) mySensorClass.getX();
@@ -167,7 +194,12 @@ public class MySurfaceView extends View{
 
             public void setMySensorClass(Sensors input){this.mySensorClass = input;}
 
+            public void setReturnedString(String s){this.returnedString = s;}
 
+    @Override
+    public void run() {
+        continuousRedraw();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 

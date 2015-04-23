@@ -23,7 +23,7 @@ public class Sensors implements SensorEventListener {
         myAccelerometer = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mySensorManager.registerListener(this,myAccelerometer,SensorManager.SENSOR_DELAY_NORMAL);
 
-        System.out.println("ACCELEROMETER SAYS I'M BEING INITIALIZED \n");
+        //System.out.println("ACCELEROMETER SAYS I'M BEING INITIALIZED \n");
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Sensors implements SensorEventListener {
         gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
         gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
 
-        System.out.println("ACCELEROMETER SAYS I'M BEING CHANGED \n");
+        //System.out.println("ACCELEROMETER SAYS I'M BEING CHANGED \n");
 
     }
 
