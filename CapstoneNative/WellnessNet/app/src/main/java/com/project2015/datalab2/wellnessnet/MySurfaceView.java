@@ -27,6 +27,9 @@ public class MySurfaceView extends View implements Runnable{
     private int x,y,z;                           //will hold xyz vectors
     private String returnedString = "";              //will hold the returned string
     boolean firstDraw = true;
+
+    
+
     public MySurfaceView(Context context) {
         super(context);
 
@@ -37,57 +40,66 @@ public class MySurfaceView extends View implements Runnable{
         x = y = z = 1;                               //initialization
 
     }
+    public void drawInit(Canvas c){
+        int centerHorizontal, centerVertical;
+        centerHorizontal = c.getWidth() / 2;
+        centerVertical = c.getHeight() / 2;
+        System.out.println("nothing is supposed to be drawn yet");
+        Paint textPaint;
+        textPaint = new Paint();
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(c.getHeight()/20);
+        c.drawText(returnedString,c.getWidth()/100,centerVertical/8,textPaint);
+        if(returnedString!=""){
+            Toast toast = Toast.makeText(getContext(),returnedString,Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+        if(firstDraw){
+
+            c.drawText("Please Press The Microphone ",0,centerVertical/2,textPaint);
+            c.drawText("and Explain Your Symptoms",0,centerVertical/2 + textPaint.getTextSize(),textPaint);
+            firstDraw = false;
+        }
+        else
+            continuousRedraw();
+
+    }
+
+    public void drawRecordingDot(Canvas c){
+        int centerHorizontal, centerVertical;
+        centerHorizontal = c.getWidth() / 2;
+        centerVertical = c.getHeight() / 2;
+
+
+        Paint redPaint;
+        redPaint = new Paint();
+        redPaint.setColor(Color.RED);
+        redPaint.setStyle(Paint.Style.FILL);
+
+        Paint textPaint;
+        textPaint = new Paint();
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(c.getHeight()/12);
+        int total = (int) (x+y+z);
+        //c.drawText("x=" + (int) (x/9.81 * 100) + "% y=" + (int) (y/9.81 * 100)
+        //                + "% z= "+ (int) (z/9.81 * 100) + "%",c.getWidth()/100,centerVertical/8,textPaint);
+
+
+        c.drawCircle(centerHorizontal, centerVertical, radius, redPaint);
+        continuousRedraw();
+    }
+
 
     @Override
         public void draw(Canvas c) {
             super.draw(c);
             //c.drawCircle(cx,cy,radius,paint);
-            if(!supposedToBeDrawn){
-                int centerHorizontal, centerVertical;
-                centerHorizontal = c.getWidth() / 2;
-                centerVertical = c.getHeight() / 2;
-                System.out.println("nothing is supposed to be drawn yet");
-                Paint textPaint;
-                textPaint = new Paint();
-                textPaint.setColor(Color.BLACK);
-                textPaint.setTextSize(c.getHeight()/20);
-                c.drawText(returnedString,c.getWidth()/100,centerVertical/8,textPaint);
-                if(returnedString!=""){
-                    Toast toast = Toast.makeText(getContext(),returnedString,Toast.LENGTH_LONG);
-                    toast.show();
-                    return;
-                }
-                if(firstDraw){
-
-                    c.drawText("Please Press The Microphone ",0,centerVertical/2,textPaint);
-                    c.drawText("and Explain Your Symptoms",0,centerVertical/2 + textPaint.getTextSize(),textPaint);
-                    firstDraw = false;
-                }
-                else
-                    continuousRedraw();
-                }
+            if(!supposedToBeDrawn) {
+                drawInit(c);
+            }
             else {
-                int centerHorizontal, centerVertical;
-                centerHorizontal = c.getWidth() / 2;
-                centerVertical = c.getHeight() / 2;
-
-
-                Paint redPaint;
-                redPaint = new Paint();
-                redPaint.setColor(Color.RED);
-                redPaint.setStyle(Paint.Style.FILL);
-
-                Paint textPaint;
-                textPaint = new Paint();
-                textPaint.setColor(Color.BLACK);
-                textPaint.setTextSize(c.getHeight()/12);
-                int total = (int) (x+y+z);
-                //c.drawText("x=" + (int) (x/9.81 * 100) + "% y=" + (int) (y/9.81 * 100)
-                //                + "% z= "+ (int) (z/9.81 * 100) + "%",c.getWidth()/100,centerVertical/8,textPaint);
-
-
-                c.drawCircle(centerHorizontal, centerVertical, radius, redPaint);
-                continuousRedraw();
+                drawRecordingDot(c);
 
             }
 

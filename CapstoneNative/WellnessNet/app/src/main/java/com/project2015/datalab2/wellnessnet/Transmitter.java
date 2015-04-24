@@ -23,14 +23,15 @@ import java.net.Socket;
  * Created by erikbenscoter on 4/18/15.
  */
 public class Transmitter extends AsyncTask {
-    private Socket socky;
-    private int port = 8002;
-    private String serverIP = "75.102.96.26";
+    public Socket socky;
+    private int port = 8080;
+    private String serverIP = "104.39.125.213";
     private int timeoutBeforeError = 1 * 60 * 1000; //one minute
     char voiceOrText;
     String fileNameOrStringToSend;
     Activity activity;
     String returnString = null;
+    Boolean socketExists = false;
 
 
     public Transmitter(Activity a) {
@@ -63,16 +64,20 @@ public class Transmitter extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
+
         System.out.println("entering the sendFile method");
         String returnedString = "";
         try {
-            InetSocketAddress sockyAddress = new InetSocketAddress(serverIP, port);
+            if(!socketExists) {
+                InetSocketAddress sockyAddress = new InetSocketAddress(serverIP, port);
 
-            socky = new Socket();
-            try {
-                socky.connect(sockyAddress);
-            } catch (Exception e) {
-                System.out.println(e);
+                socky = new Socket();
+                try {
+                    socky.connect(sockyAddress);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                socketExists = true;
             }
             System.out.println("Made a successful connection");
             PrintWriter sendOut = new PrintWriter(socky.getOutputStream(), true);
@@ -102,26 +107,23 @@ public class Transmitter extends AsyncTask {
                     System.out.println("ERROR" + e.toString());
                 }
             }
-
+            System.out.println(returnedString);
             System.out.println("made it past sending the string");
 
 
         } catch (Exception e) {
             System.out.println("Encountered an error: " + e.toString());
         }
-        try {
-            socky.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
 
 
+        this.returnString = (String) returnedString;
         return (Object) returnedString;
 
     }
 
     @Override
     protected void onPostExecute(Object o) {
+        System.out.println("ON POST EXECUTE --> HAS RAN!!!!");
         this.returnString = (String) o;
         System.out.println("HEEEEREEE" + returnString);
 

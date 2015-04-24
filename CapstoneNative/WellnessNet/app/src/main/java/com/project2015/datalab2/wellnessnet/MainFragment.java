@@ -15,6 +15,7 @@ package com.project2015.datalab2.wellnessnet;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ImageView;
+        import android.widget.LinearLayout;
         import android.widget.Toast;
 
         import java.io.IOException;
@@ -30,6 +31,7 @@ public class MainFragment extends android.support.v4.app.Fragment{
     recordStudio tapeRecorder;
     Sensors mySensorClass;
     boolean waitingForResponse;
+    Thread thr;
 
 
     @Override
@@ -88,41 +90,37 @@ public class MainFragment extends android.support.v4.app.Fragment{
                     returnedString = t.sendVoice(tapeRecorder.getL_outputFile());
                     waitingForResponse= true;
 
-                    new Thread(new CorrectionActivityCreator(recordStatus,t)).start();
+                    while (t.returnString == null);
+                    System.out.println("after first infinite while loop");
+                    LinearLayout mainLayout = (LinearLayout) getActivity().findViewById(R.id.mainLinearLayout);
+                    mainLayout.removeAllViews();
+                    System.out.println("ran past removeAllViews");
+                    CorrectStringView csv = new CorrectStringView((Context) getActivity());
+                    csv.stringToExamine = t.returnString;
+                    csv.trueConstructor();
+                    csv.setBackgroundColor(Color.BLUE);
+                    mainLayout.addView(csv);
+                    t.returnString = null;
+                    csv.transmitter = t;
+                    mainLayout.invalidate();
+
+
+
+                    System.out.println(t.returnString);
 
 
 
                 }
 
-
             }
         });
-
-
 
 
         return thisFragment;
     }
 
-    public class CorrectionActivityCreator implements Runnable{
-        MySurfaceView msv;
-        Transmitter t;
-        public CorrectionActivityCreator(MySurfaceView msv,Transmitter t){
-            this.msv = msv;
-            this.t = t;
-        }
-        @Override
-        public void run() {
-            while (t.returnString == null);
-            //msv.setMode("spinning");
-            //display the string
-            waitingForResponse = false;
-            Intent intent = new Intent(getActivity(),CorrectStringActivity.class);
-            //pass parameters
-            intent.putExtra("StringFromServer",t.returnString);
-            startActivity(intent);
 
-        }
-    }
+
+
 
 }

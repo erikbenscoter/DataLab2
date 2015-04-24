@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.TextView;
 
 
 public class DiagnosisResultActivity extends ActionBarActivity {
@@ -23,6 +24,20 @@ public class DiagnosisResultActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        TextView tv = (TextView) findViewById(R.id.DiagnosisResponseText);
+        String diagnosis = "";
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null){
+            diagnosis = extras.getString("StringFromServer");
+            CorrectStringView csf = (CorrectStringView) findViewById(R.id.CorrectString);
+            csf.setStringToExamine(diagnosis);
+            csf.refresh();
+
+        }
+
+        tv.setText(diagnosis);
+        tv.invalidate();
     }
 
 

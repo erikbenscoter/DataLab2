@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Vector;
@@ -33,32 +34,34 @@ public class CorrectStringView extends LinearLayout {
 
     //class varriables
     Vector vectorOfButtons;
-
+    public boolean stringHasReturned = false;
+    Transmitter transmitter;
 
     String stringToExamine = "";
     public CorrectStringView(Context context) {
         super(context);
-        trueConstructor();
+
     }
 
     public CorrectStringView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        trueConstructor();
+
     }
 
     public CorrectStringView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        trueConstructor();
+
 
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public CorrectStringView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        trueConstructor();
+
     }
 
-    private void trueConstructor(){
+    public void trueConstructor(){
+        this.setOrientation(LinearLayout.VERTICAL);
         vectorOfButtons = new Vector();
         stringToExamine.trim();
         String[] words = stringToExamine.split(" ");
@@ -107,26 +110,38 @@ public class CorrectStringView extends LinearLayout {
         }
 
         //set the done button
-        final Button finishedButton = (Button) findViewById(R.id.finishedButton);
+
+        final Button finishedButton = new Button(getContext());
+        finishedButton.setBackgroundColor(Color.GREEN);
+
         finishedButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 //build up the corrected string
                 String correctedString = "";
-                for (int buttonItterator = 0; buttonItterator < vectorOfButtons.size(); buttonItterator++){
-                    correctedString = correctedString + ((Button)vectorOfButtons.get(buttonItterator)).getText();
+                for (int buttonItterator = 0; buttonItterator < vectorOfButtons.size(); buttonItterator++) {
+                    correctedString = correctedString + ((Button) vectorOfButtons.get(buttonItterator)).getText() + " ";
                 }
+                correctedString = correctedString.trim();
                 finishedButton.setBackgroundColor(Color.WHITE);
-                Transmitter transmitter = new Transmitter((Activity) getContext());
-                transmitter.sendText(correctedString);
-
-                new Thread(new WaitingOnTransmitterReturn(transmitter)).start();
-
-
+                transmitter.returnString = null;
+                Transmitter transmitter2 = new Transmitter((Activity) getContext());
+                transmitter2.socky = transmitter.socky;
+                transmitter2.socketExists = true;
+                transmitter2.sendText(correctedString);
+                while(transmitter2.returnString == null);
+                System.out.println(transmitter2.returnString);
+                Toast toast = Toast.makeText(getContext(),transmitter2.returnString,Toast.LENGTH_LONG);
+                toast.show();
 
 
             }
+
         });
+        finishedButton.setText("Finished");
+        this.addView(finishedButton);
+
+
 
     }
 
@@ -141,7 +156,7 @@ public class CorrectStringView extends LinearLayout {
             //busy wait
             Intent intent = new Intent((Activity)getContext(),DiagnosisResultActivity.class);
             //pass parameters
-            intent.putExtra("StringFromServer",t.returnString);
+            intent.putExtra("ReceivedDiagnosis",t.returnString);
             getContext().startActivity(intent);
 
         }
