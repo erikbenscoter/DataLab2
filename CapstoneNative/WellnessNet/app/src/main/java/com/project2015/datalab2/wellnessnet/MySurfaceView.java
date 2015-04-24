@@ -50,7 +50,7 @@ public class MySurfaceView extends View implements Runnable{
                 Paint textPaint;
                 textPaint = new Paint();
                 textPaint.setColor(Color.BLACK);
-                textPaint.setTextSize(c.getHeight()/12);
+                textPaint.setTextSize(c.getHeight()/20);
                 c.drawText(returnedString,c.getWidth()/100,centerVertical/8,textPaint);
                 if(returnedString!=""){
                     Toast toast = Toast.makeText(getContext(),returnedString,Toast.LENGTH_LONG);
@@ -59,13 +59,14 @@ public class MySurfaceView extends View implements Runnable{
                 }
                 if(firstDraw){
 
-                    c.drawText("Please Press The Microphone and Explain Your Symptoms",0,0,textPaint);
+                    c.drawText("Please Press The Microphone ",0,centerVertical/2,textPaint);
+                    c.drawText("and Explain Your Symptoms",0,centerVertical/2 + textPaint.getTextSize(),textPaint);
                     firstDraw = false;
                 }
-                else{
+                else
                     continuousRedraw();
                 }
-            }else {
+            else {
                 int centerHorizontal, centerVertical;
                 centerHorizontal = c.getWidth() / 2;
                 centerVertical = c.getHeight() / 2;
@@ -81,8 +82,8 @@ public class MySurfaceView extends View implements Runnable{
                 textPaint.setColor(Color.BLACK);
                 textPaint.setTextSize(c.getHeight()/12);
                 int total = (int) (x+y+z);
-                c.drawText("x=" + (int) (x/9.81 * 100) + "% y=" + (int) (y/9.81 * 100)
-                                + "% z= "+ (int) (z/9.81 * 100) + "%",c.getWidth()/100,centerVertical/8,textPaint);
+                //c.drawText("x=" + (int) (x/9.81 * 100) + "% y=" + (int) (y/9.81 * 100)
+                //                + "% z= "+ (int) (z/9.81 * 100) + "%",c.getWidth()/100,centerVertical/8,textPaint);
 
 
                 c.drawCircle(centerHorizontal, centerVertical, radius, redPaint);

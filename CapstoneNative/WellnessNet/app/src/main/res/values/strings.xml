@@ -24,5 +24,6 @@
     <string name="tab2">Near You</string>
     <string name="tab3">History</string>
     <string name="title_activity_correct_string">CorrectStringActivity</string>
+    <string name="title_activity_diagnosis_result">DiagnosisResult</string>
 
 </resources>

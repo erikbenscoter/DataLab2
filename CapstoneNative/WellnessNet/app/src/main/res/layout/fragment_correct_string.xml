@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
         <com.project2015.datalab2.wellnessnet.CorrectStringView
             android:id = "@+id/CorrectString"
             android:orientation="vertical"
@@ -19,6 +20,20 @@
             />
     </ScrollView>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finished"
+        android:id="@+id/finishedButton"
+        android:layout_marginBottom="81dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/scrollView"
+        android:layout_alignEnd="@+id/scrollView"
+        android:layout_alignParentStart="false"
+        android:background="#ff80ff37"
+        android:elegantTextHeight="false" />
 
 
 </RelativeLayout>

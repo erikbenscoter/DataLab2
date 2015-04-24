@@ -25,6 +25,10 @@
             android:name=".CorrectStringActivity"
             android:label="@string/title_activity_correct_string" >
         </activity>
+        <activity
+            android:name=".DiagnosisResultActivity"
+            android:label="@string/title_activity_diagnosis_result" >
+        </activity>
     </application>
 
 </manifest>

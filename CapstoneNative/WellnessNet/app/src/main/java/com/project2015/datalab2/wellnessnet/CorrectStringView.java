@@ -2,6 +2,7 @@ package com.project2015.datalab2.wellnessnet;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
@@ -22,10 +23,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+import java.util.Vector;
+
 /**
  * Created by erikbenscoter on 4/21/15.
  */
 public class CorrectStringView extends LinearLayout {
+
+    //class varriables
+    Vector vectorOfButtons;
+
 
     String stringToExamine = "";
     public CorrectStringView(Context context) {
@@ -51,6 +59,7 @@ public class CorrectStringView extends LinearLayout {
     }
 
     private void trueConstructor(){
+        vectorOfButtons = new Vector();
         stringToExamine.trim();
         String[] words = stringToExamine.split(" ");
 
@@ -74,6 +83,7 @@ public class CorrectStringView extends LinearLayout {
             b.setText(word);
             b.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
             addView(b);
+            vectorOfButtons.add(b);
             b.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,6 +106,45 @@ public class CorrectStringView extends LinearLayout {
 
         }
 
+        //set the done button
+        final Button finishedButton = (Button) findViewById(R.id.finishedButton);
+        finishedButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //build up the corrected string
+                String correctedString = "";
+                for (int buttonItterator = 0; buttonItterator < vectorOfButtons.size(); buttonItterator++){
+                    correctedString = correctedString + ((Button)vectorOfButtons.get(buttonItterator)).getText();
+                }
+                finishedButton.setBackgroundColor(Color.WHITE);
+                Transmitter transmitter = new Transmitter((Activity) getContext());
+                transmitter.sendText(correctedString);
+
+                new Thread(new WaitingOnTransmitterReturn(transmitter)).start();
+
+
+
+
+            }
+        });
+
+    }
+
+    public class WaitingOnTransmitterReturn implements Runnable{
+        Transmitter t;
+        public WaitingOnTransmitterReturn(Transmitter t){
+            this.t = t;
+        }
+        @Override
+        public void run() {
+            while (t.returnString == null);
+            //busy wait
+            Intent intent = new Intent((Activity)getContext(),DiagnosisResultActivity.class);
+            //pass parameters
+            intent.putExtra("StringFromServer",t.returnString);
+            getContext().startActivity(intent);
+
+        }
     }
 
     public void refresh(){
